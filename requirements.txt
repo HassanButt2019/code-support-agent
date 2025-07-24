@@ -5,3 +5,6 @@ langchain
 chromadb
 tqdm
 python-dotenv
+langchain-community
+dotenv
+tiktoken

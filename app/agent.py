@@ -6,7 +6,7 @@ from app.config import OPENAI_API_KEY, CHROMA_DB_DIR
 
 def get_code_agent():
     db = Chroma(persist_directory=CHROMA_DB_DIR, embedding_function=OpenAIEmbeddings())
-    retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 4})
+    retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 1})
     qa = RetrievalQA.from_chain_type(
         llm=OpenAI(temperature=0),
         retriever=retriever,
