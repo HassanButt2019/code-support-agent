@@ -1,4 +1,6 @@
-from app.utils import build_github_link
+import time
+from app.ingest import ingest_codebase
+from app.utils import build_github_link, clone_github_repo
 from fastapi import FastAPI, Query
 from pydantic import BaseModel
 from app.agent import get_code_agent
@@ -11,7 +13,8 @@ class QueryInput(BaseModel):
     question: str
 
 
-
+class IngestInput(BaseModel):
+    github_repo_url: str
 
 def normalize_lines(line_str):
     """Converts '4-9' to tuple of ints (4, 9)."""
@@ -21,6 +24,21 @@ def normalize_lines(line_str):
 def is_overlapping(a, b):
     """Returns True if line range a overlaps with b."""
     return not (a[1] < b[0] or b[1] < a[0])
+
+
+
+@app.post("/ingest")
+def ingest_repo(input: IngestInput):
+    start = time.time()
+    repo_path = clone_github_repo(input.github_repo_url)
+    ingest_codebase(repo_path)
+    end = time.time()
+    return {
+        "message": "✅ Ingestion complete.",
+        "repo": input.github_repo_url,
+        "local_path": repo_path,
+        "duration_seconds": round(end - start, 2)
+    }
 
 @app.post("/ask")
 def ask_codebase(query: QueryInput):
