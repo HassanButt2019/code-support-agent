@@ -1,9 +1,11 @@
+import os
 import time
 from app.ingest import ingest_codebase
 from app.utils import build_github_link, clone_github_repo
 from fastapi import FastAPI, Query
 from pydantic import BaseModel
 from app.agent import get_code_agent
+from dotenv import set_key ,load_dotenv
 
 app = FastAPI()
 qa = get_code_agent()
@@ -30,7 +32,7 @@ def is_overlapping(a, b):
 def ingest_repo(input: IngestInput):
     global GITHUB_REPO_URL
     start = time.time()
-    GITHUB_REPO_URL = input.github_repo_url
+    set_key(".env", "GITHUB_REPO_URL", input.github_repo_url)
     repo_path = clone_github_repo(input.github_repo_url)
     ingest_codebase(repo_path)
     end = time.time()
@@ -43,6 +45,8 @@ def ingest_repo(input: IngestInput):
 
 @app.post("/ask")
 def ask_codebase(query: QueryInput):
+    load_dotenv()
+    GITHUB_REPO_URL = os.getenv("GITHUB_REPO_URL")
     response = qa(query.question)
     answer = response["result"]
 
