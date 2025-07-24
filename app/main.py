@@ -4,10 +4,10 @@ from app.utils import build_github_link, clone_github_repo
 from fastapi import FastAPI, Query
 from pydantic import BaseModel
 from app.agent import get_code_agent
-from app.config import GITHUB_REPO_URL
 
 app = FastAPI()
 qa = get_code_agent()
+GITHUB_REPO_URL = None
 
 class QueryInput(BaseModel):
     question: str
@@ -26,12 +26,12 @@ def is_overlapping(a, b):
     return not (a[1] < b[0] or b[1] < a[0])
 
 
-
 @app.post("/ingest")
 def ingest_repo(input: IngestInput):
+    global GITHUB_REPO_URL
     start = time.time()
-    repo_path = clone_github_repo(input.github_repo_url)
     GITHUB_REPO_URL = input.github_repo_url
+    repo_path = clone_github_repo(input.github_repo_url)
     ingest_codebase(repo_path)
     end = time.time()
     return {
