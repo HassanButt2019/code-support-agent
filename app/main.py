@@ -31,6 +31,7 @@ def is_overlapping(a, b):
 def ingest_repo(input: IngestInput):
     start = time.time()
     repo_path = clone_github_repo(input.github_repo_url)
+    GITHUB_REPO_URL = input.github_repo_url
     ingest_codebase(repo_path)
     end = time.time()
     return {
