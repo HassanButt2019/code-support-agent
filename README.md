@@ -35,44 +35,21 @@ This project uses **LangChain**, **ChromaDB**, and **OpenAI** to build a smart c
 
 ## 🚧 Planned / Upcoming Features
 
-- 🧠 **Function-Aware Metadata Filtering**  
-  Query only specific files like `auth.py` or folders like `services/`.
-
-- 🧩 **Hybrid Search**  
-  Combine keyword-based and embedding-based search for higher relevance.
-
-- 📊 **Code Snippet Preview in Response**  
-  Include code snippet previews directly in the `/ask` API responses.
-
-- 🔁 **Reranking Results**  
-  Improve quality using reranking models (Cohere, BGE).
-
-- 🧭 **Navigation Graphs**  
-  Generate Mermaid.js or Graphviz diagrams to visualize code structure.
-
-- 🌍 **Multi-Language Support**  
-  Add support for JavaScript, Java, and other languages via Tree-sitter.
-
-- 🧵 **Conversation Memory**  
-  Retain context of previous developer questions for better follow-up answers.
-
-- 🔄 **Diff Agent**  
-  Compare two versions/branches and explain changes.
-
-- 🕵️ **Stack Trace Explainer**  
-  Paste an error traceback and get probable cause analysis.
-
-- 🛡️ **Security Scan Mode**  
-  Identify dangerous patterns like `eval()`, hardcoded credentials, etc.
-
-- 🧰 **Workspace Upload Support**  
-  Allow ZIP uploads of projects or GitHub repo fetch without terminal.
-
-- 🧠 **VSCode Inline Assistant (Browser Plugin)**  
-  Inline explanations and navigation in VSCode-like interface.
-
-- 📄 **Auto-Generated Summary Reports**  
-  Generate downloadable reports of API routes, models, schema details, etc.
+- 🧠 Function-aware metadata filtering (e.g., only search `auth.py`)
+- 🧩 Hybrid search: combine keyword and embedding-based ranking
+- 📊 Snippet preview in response (first 2–5 lines of matched chunk)
+- 🔁 Reranking with Cohere/BGE models for higher relevance
+- 🧭 Mermaid.js/Graphviz-based Navigation Graphs
+- 🌍 Multi-language support via [Tree-sitter](https://tree-sitter.github.io/)
+- 🧵 Conversation memory for follow-up developer questions
+- 🔄 Diff Agent to compare branches/commits
+- 🕵️ Paste stack trace → get root cause explanation
+- 🛡️ Security scan mode for vulnerable patterns like `eval()`
+- 🧰 Workspace upload: zip or repo ingestion from frontend
+- 🧠 VSCode-like inline AI assistant (Chrome extension)
+- 📄 Downloadable API/Code Summary Reports
+- ⏱️ Token-limited ingestion with repo/file limits
+- 🧹 Storage optimization: auto-cleanup, LRU eviction, or per-user quotas
 
 ---
 
