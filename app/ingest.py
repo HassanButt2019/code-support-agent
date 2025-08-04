@@ -3,12 +3,7 @@ import ast
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain.docstore.document import Document
-
-from app.config import OPENAI_API_KEY, CHROMA_DB_DIR
-from app.config import (
-    OPENAI_API_KEY, CHROMA_DB_DIR,
-    MAX_FILES, MAX_TOTAL_TOKENS, MAX_TOKENS_PER_CHUNK
-)
+from app.config import settings
 import tiktoken
 
 tokenizer = tiktoken.get_encoding("cl100k_base")
@@ -34,7 +29,7 @@ def chunk_code_file(filepath):
                 continue
 
             tokens = len(tokenizer.encode(code))
-            if tokens > MAX_TOKENS_PER_CHUNK:
+            if tokens > settings.MAX_TOKENS_PER_CHUNK:
                 print(f"⚠️ Skipped large chunk ({tokens} tokens): {filepath} lines {start}-{end}")
                 continue
 
@@ -56,7 +51,7 @@ def ingest_codebase(directory="data"):
     for root, _, files in os.walk(directory):
         for file in files:
             if file.endswith(".py"):
-                if file_count >= MAX_FILES:
+                if file_count >= settings.MAX_FILES:
                     print("🚫 File limit reached.")
                     break
 
@@ -64,7 +59,7 @@ def ingest_codebase(directory="data"):
                 file_chunks = chunk_code_file(filepath)
 
                 for chunk in file_chunks:
-                    if total_tokens + chunk["tokens"] > MAX_TOTAL_TOKENS:
+                    if total_tokens + chunk["tokens"] > settings.MAX_TOTAL_TOKENS:
                         print("🚫 Token budget exceeded.")
                         break
 
@@ -84,6 +79,6 @@ def ingest_codebase(directory="data"):
         return
 
     embeddings = OpenAIEmbeddings()
-    db = Chroma.from_documents(docs, embedding=embeddings, persist_directory=CHROMA_DB_DIR)
+    db = Chroma.from_documents(docs, embedding=embeddings, persist_directory=settings.CHROMA_DB_DIR)
     db.persist()
     print("✅ Chroma DB updated.")

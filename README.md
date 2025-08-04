@@ -8,27 +8,81 @@ This project uses **LangChain**, **ChromaDB**, and **OpenAI** to build a smart c
 
 ## 🚀 Features
 
-✅ Already Implemented:
-- 🔍 Ask natural language questions about your codebase
-- 📂 Ingest Python code and chunk by function/class using `ast`
-- 🔗 Respond with file paths and line numbers
-- 📎 Auto-generate GitHub-style links for referenced code chunks
-- 🧠 FastAPI backend with `/ask` endpoint
+## ✅ Completed Features
 
-🛠️ Planned/Upcoming Features:
-- 🧠 **Function-aware metadata filtering** (e.g., only search `auth.py`)
-- 🧩 **Hybrid search**: combine keyword and embedding-based search
-- 📊 **Code snippet preview** in API response
-- 🔁 **Reranking** with Cohere/BGE models for higher relevance
-- 🧭 **Navigation Graphs** using Mermaid.js or Graphviz
-- 🌍 **Multi-language support** (JavaScript, Java, etc. using Tree-sitter)
-- 🧵 **Conversation memory** for follow-up developer questions
-- 🔄 **Diff Agent** to compare two branches or versions
-- 🕵️ **Error Trace Explainer**: paste stack trace → get probable cause
-- 🛡️ **Security scan mode**: find unsafe patterns like `eval`
-- 🧰 **Workspace upload**: support `.zip` upload or GitHub repo fetch
-- 🧠 **VSCode-like inline assistant** (future browser plugin)
-- 📄 **Downloadable project summary reports** (e.g., API routes)
+- 🔍 **Natural Language Q&A**  
+  Ask questions like _"Where is the database connection initialized?"_
+
+- 📂 **Python Code Ingestion**  
+  Parses your codebase using `ast` and chunks by function or class for context-aware retrieval.
+
+- 🔗 **Source Linking**  
+  Returns file path and line numbers with GitHub-style links to the exact code location.
+
+- ⚙️ **FastAPI Backend**  
+  Provides `/ask` and `/ingest` endpoints for integration.
+
+- 🔐 **JWT Authentication**  
+  Login support with Bearer tokens to enable multi-user functionality.
+
+- 📎 **Dynamic GitHub Ingestion**  
+  Accepts public GitHub repo URL at runtime and ingests it dynamically.
+
+- 🧠 **LangChain-Powered Search**  
+  Uses OpenAI embeddings and Chroma vector DB for semantic document retrieval.
+
+---
+
+## 🚧 Planned / Upcoming Features
+
+- 🧠 **Function-Aware Metadata Filtering**  
+  Query only specific files like `auth.py` or folders like `services/`.
+
+- 🧩 **Hybrid Search**  
+  Combine keyword-based and embedding-based search for higher relevance.
+
+- 📊 **Code Snippet Preview in Response**  
+  Include code snippet previews directly in the `/ask` API responses.
+
+- 🔁 **Reranking Results**  
+  Improve quality using reranking models (Cohere, BGE).
+
+- 🧭 **Navigation Graphs**  
+  Generate Mermaid.js or Graphviz diagrams to visualize code structure.
+
+- 🌍 **Multi-Language Support**  
+  Add support for JavaScript, Java, and other languages via Tree-sitter.
+
+- 🧵 **Conversation Memory**  
+  Retain context of previous developer questions for better follow-up answers.
+
+- 🔄 **Diff Agent**  
+  Compare two versions/branches and explain changes.
+
+- 🕵️ **Stack Trace Explainer**  
+  Paste an error traceback and get probable cause analysis.
+
+- 🛡️ **Security Scan Mode**  
+  Identify dangerous patterns like `eval()`, hardcoded credentials, etc.
+
+- 🧰 **Workspace Upload Support**  
+  Allow ZIP uploads of projects or GitHub repo fetch without terminal.
+
+- 🧠 **VSCode Inline Assistant (Browser Plugin)**  
+  Inline explanations and navigation in VSCode-like interface.
+
+- 📄 **Auto-Generated Summary Reports**  
+  Generate downloadable reports of API routes, models, schema details, etc.
+
+---
+
+## 📦 Installation & Usage
+
+```bash
+git clone https://github.com/your-org/dev-support-agent.git
+cd dev-support-agent
+pip install -r requirements.txt
+uvicorn app.main:app --reload
 
 ---
 
